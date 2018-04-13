@@ -1,0 +1,35 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "sample app for 9x9 tic tac toe game with 2 players and no computer",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yesh",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "webpack": "^4.0.1"
+  },
+  "dependencies": {
+    "add": "^2.0.6",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "lodash": "^4.17.5",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.20.2",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
