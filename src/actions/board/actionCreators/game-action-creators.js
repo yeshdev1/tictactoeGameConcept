@@ -21,10 +21,6 @@ const detectWinnerOfTile = (tileNumber, tileState) => {
     2: third
   } = tileState[tileNumber];
 
-  console.log(rowFind([first,second,third]));
-  console.log(columnFind([first,second,third]));
-  console.log(diagonalFind([first,second,third]));
-
   return rowFind([first,second,third]) || columnFind([first,second,third]) || diagonalFind([first,second,third]);
 }
 

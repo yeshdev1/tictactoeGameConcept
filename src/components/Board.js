@@ -4,6 +4,7 @@ import "../styles/Board.css";
 import BoardTile from './BoardTile';
 import Box from './Box';
 import { board } from '../initialStates';
+import { C } from '../symbols/symbols';
 
 export default class Board extends React.Component {
   constructor(props){
@@ -13,6 +14,8 @@ export default class Board extends React.Component {
   }
 
   boxChange(index, tileNumber) {
+    console.log(index);
+    console.log(tileNumber);
     if(this.props.tileState[tileNumber][Math.trunc(index/this.props.size)][index%this.props.size] === '') {
       this.props.tileStateChange(index, tileNumber);
     }
@@ -25,6 +28,7 @@ export default class Board extends React.Component {
       boardType,
       size,
       tileState,
+      tileStatus,
       gameState,
       children
     } = this.props;
@@ -41,6 +45,8 @@ export default class Board extends React.Component {
       2: childThirdRow
     } = index !== -1 ? tileState[index] : board;
 
+    const currentTileStatus = (tileStatus || (gameState[Math.trunc(index / 3)][index % 3] === C) && boardType !== "Parent");
+
     return (
       <div className={boardType === "Parent" ? "Parent-board" : "Child-board"}>
         <div className="Col">
@@ -48,7 +54,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[0]} state={parentFirstRow[0]} />
               : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={0}
                   index={0}
                   state={childFirstRow[0]}
@@ -58,7 +65,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[1]} state={parentFirstRow[1]} />
               : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={1}
                   index={1}
                   state={childFirstRow[1]}
@@ -68,7 +76,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[2]} state={parentFirstRow[2]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={2}
                   index={2}
                   state={childFirstRow[2]}
@@ -80,7 +89,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[3]} state={parentSecondRow[0]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={3}
                   index={3}
                   state={childSecondRow[0]}
@@ -90,7 +100,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[4]} state={parentSecondRow[1]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={4}
                   index={4}
                   state={childSecondRow[1]}
@@ -100,7 +111,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[5]} state={parentSecondRow[2]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={5}
                   index={5}
                   state={childSecondRow[2]}
@@ -112,7 +124,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[6]} state={parentThirdRow[0]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={6}
                   index={6}
                   state={childThirdRow[0]}
@@ -122,7 +135,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[7]} state={parentThirdRow[1]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={7}
                   index={7}
                   state={childThirdRow[1]}
@@ -132,7 +146,8 @@ export default class Board extends React.Component {
             {boardType === "Parent" ?
               <BoardTile tile={children[8]} state={parentThirdRow[2]} />
              : <Box
-                  onClick={this.boxChange}
+                  onClick={currentTileStatus ? this.boxChange : null}
+                  status={currentTileStatus}
                   key={8}
                   index={8}
                   state={childThirdRow[2]}
@@ -150,6 +165,7 @@ Board.defaultProps = {
   index: -1,
   board: {},
   boardType: 'Child',
+  tileStatus: false,
   size: 3,
   children: []
 }
@@ -159,5 +175,6 @@ Board.propTypes = {
   board: PropTypes.object,
   boardType: PropTypes.oneOf(['Parent','Child']),
   size: PropTypes.number,
+  tileStatus: PropTypes.bool,
   children: PropTypes.array
 }

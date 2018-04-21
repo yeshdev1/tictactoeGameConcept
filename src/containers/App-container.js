@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import App from "../components/App";
 
-const mapStateToProps = () => {
+const mapStateToProps = ({ gameState }) => {
   return {
-    
+    gameState
   }
 }
 

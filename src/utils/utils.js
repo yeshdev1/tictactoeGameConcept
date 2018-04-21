@@ -12,38 +12,37 @@ export const rowFind = ([...rows]) => {
 }
 
 export const columnFind = ([...rows]) => {
-  console.log('this is the rows 1', rows);
-  let totalPossibleHits;
-  [...rows].forEach((row,index) => {
-    totalPossibleHits = 1;
-    for(var cellVal in rows) {
-      if(index > 0) {
-        if (cellVal[index - 1] === cellVal[index]) totalPossibleHits++;
-      }
-    }
-    return (totalPossibleHits === row.length - 1);
+  var exists = false;
+  const length = rows.length;
+  var	countArray=	[...new	Array(rows.length)].map((number,index)	=>	{	return	{"X":0,"O":0}});
+  rows.forEach((row) => {
+   	row.forEach((col,index) => {
+     	if(col !== '') {
+       	countArray[index][col]++;
+        if(countArray[index][col] === length) {
+          exists = true;
+        }
+       }
+     });
   });
+  return exists;
 }
 
 export const diagonalFind = ([...rows]) => {
-  console.log('this is the rows 2', rows);
-  // Right to left algorithm
-  let totalPossibleHits = 0;
-  // Left to right algorithm
-  for(var cellVal in rows) {
-    if(totalPossibleHits > 0) {
-      if(rows[totalPossibleHits -  1] === rows[totalPossibleHits]) totalPossibleHits++;
-    }
-  }
-  if(totalPossibleHits === rows.length - 1) return true;
+  var countTuple = [{
+    "X":0,
+    "O":0 },
+   {"X":0,
+    "O":0 }
+  ];
 
-  totalPossibleHits = rows.length - 1;
-  for(var cellVal in rows) {
-    if(totalPossibleHits < rows.length - 1) {
-      if (rows[totalPossibleHits] === rows[totalPossibleHits + 1]) totalPossibleHits--;
-    }
-  }
-  if(totalPossibleHits === 0) return true;
+  rows.forEach((row,index) => {
+    countTuple[0][row[index]]++;
+    countTuple[1][row[row.length - index - 1]]++;
+  });
 
-  return false;
+  return countTuple[0]["X"] === rows.length ||
+         countTuple[0]["O"] === rows.length ||
+         countTuple[1]["X"] === rows.length ||
+         countTuple[1]["O"] === rows.length;
 }
